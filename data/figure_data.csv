@@ -1,0 +1,10 @@
+substance,label,classification,ecoinvent_kg,edgar_kg,edgar_year,edgar_source
+CO2 (fossil),$CO_2$,GHG,4.794883e13,3.36e13,2010,Janssens-Maenhout et al. 2019 (EDGAR v4.3.2)
+CO,$CO$,GHG,9.712187e11,5.62e11,2012,Crippa et al. 2018 (EDGAR v4.3.2)
+CH4,$CH_4$,GHG,2.590329e11,3.40e11,2010,Janssens-Maenhout et al. 2019 (EDGAR v4.3.2)
+N2O,$N_2O$,GHG,9.698462e9,7.20e9,2010,Janssens-Maenhout et al. 2019 (EDGAR v4.3.2)
+NOx,$NO_x$,Air pollutant,1.146397e11,1.22e11,2012,Crippa et al. 2018 (EDGAR v4.3.2)
+SO2,$SO_2$,Air pollutant,1.365392e11,1.03e11,2012,Crippa et al. 2018 (EDGAR v4.3.2)
+NH3,$NH_3$,Air pollutant,3.658971e10,5.90e10,2012,Crippa et al. 2018 (EDGAR v4.3.2)
+NMVOC,NMVOC,Air pollutant,3.379956e10,1.70e11,2012,Crippa et al. 2018 (EDGAR v4.3.2)
+PM2.5,$PM_{2.5}$,Air pollutant,3.450454e10,4.10e10,2012,Crippa et al. 2018 (EDGAR v4.3.2)

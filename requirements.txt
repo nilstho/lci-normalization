@@ -1,0 +1,17 @@
+# Brightway 2.5 LCA stack (needed to rebuild the normalization inventory)
+bw2data
+bw2calc
+bw2io
+bw2analyzer
+
+# Scientific Python
+pandas>=2.0
+numpy
+scipy
+matplotlib
+seaborn
+plotly
+openpyxl
+tqdm
+
+# Figure regeneration (src/make_figures.py) only needs: pandas, numpy, matplotlib

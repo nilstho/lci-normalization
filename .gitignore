@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+env/
+venv/
+
+# Licensed / large data — never commit (regenerate locally)
+*.bw2package
+*.pkl
+ecoinvent*/
+datasets/
+*.spold
+
+# Bulky derived spreadsheets produced by the notebook (keep curated data/ files)
+/*.xlsx
+Normalization_complete_new.xlsx
+Noramlization_complete_new.xlsx
+global_inventory_uncertainty.xlsx
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
