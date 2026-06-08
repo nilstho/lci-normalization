@@ -1,0 +1,10 @@
+# Normalize text files to LF in the repository
+* text=auto eol=lf
+
+# Treat binary assets as binary (no EOL conversion / diffing)
+*.png binary
+*.pdf binary
+*.xlsx binary
+
+# Jupyter notebooks: text, LF
+*.ipynb text eol=lf
