@@ -1,29 +1,22 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite the associated article and this repository."
 title: "Globally consistent normalization references for LCA from unit-process LCI databases"
+abstract: "Code and aggregated data to derive globally consistent normalization references for life cycle assessment (LCA) directly from unit-process life cycle inventory databases, demonstrated with ecoinvent 3.8 cut-off and the Brightway 2.5 framework."
+type: software
+version: 1.0.1
+date-released: "2026-08-21"
+license: MIT
+repository-code: "https://github.com/nilstho/lci-normalization"
 authors:
   - family-names: Thonemann
     given-names: Nils
     affiliation: "Institute of Environmental Sciences (CML), Leiden University"
-    orcid: "https://orcid.org/0000-0000-0000-0000"
   - family-names: Laurent
     given-names: Alexis
     affiliation: "Technical University of Denmark (DTU)"
-license: MIT
 keywords:
   - life cycle assessment
   - normalization
   - ecoinvent
   - life cycle inventory
   - GLAM
-preferred-citation:
-  type: article
-  title: "A Novel Approach to Deriving Globally Consistent Normalization References for LCA Using Unit Process Databases"
-  authors:
-    - family-names: Thonemann
-      given-names: Nils
-    - family-names: Laurent
-      given-names: Alexis
-  journal: "International Journal of Life Cycle Assessment"
-  year: 2026
-  notes: "Manuscript in preparation (GLAM special issue)."
