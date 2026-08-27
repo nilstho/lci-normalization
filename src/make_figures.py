@@ -17,7 +17,8 @@ a Brightway installation. The ecoinvent totals in that CSV come from the main
 workflow notebook; the EDGAR totals are reproduced by ``edgar_global_totals.py``.
 
 Species flagged ``in_figure = no`` are essentially absent from ecoinvent (zero or
-near-zero) and cannot be placed on logarithmic axes; they are named in the panel.
+near-zero) and cannot be placed on logarithmic axes; they are reported in the
+figure caption instead of on the panel.
 
 Usage
 -----
@@ -69,7 +70,7 @@ def load_data() -> pd.DataFrame:
 
 
 def draw_panel(ax, subset: pd.DataFrame, title: str,
-               missing: list[str] | None = None, show_ylabel: bool = True) -> None:
+               show_ylabel: bool = True) -> None:
     """Draw one log-log ecoinvent-vs-EDGAR panel (values in Mt/year)."""
     plotted = subset[subset["in_figure"] == "yes"]
     lo = min(plotted["ecoinvent_mt"].min(), plotted["edgar_mt"].min()) / 3.0
@@ -85,12 +86,6 @@ def draw_panel(ax, subset: pd.DataFrame, title: str,
                                       grp["label"], grp["substance"]):
             ax.annotate(label, (xi, yi), textcoords="offset points",
                         xytext=LABEL_OFFSET.get(sub, DEFAULT_OFFSET), fontsize=9)
-
-    if missing:
-        # placed bottom-right, where the area below the 1:1 line is empty
-        ax.text(0.97, 0.03, "Absent from ecoinvent:\n" + ", ".join(missing),
-                transform=ax.transAxes, fontsize=8, color="0.35",
-                va="bottom", ha="right")
 
     ax.set_xscale("log")
     ax.set_yscale("log")
@@ -128,7 +123,7 @@ def main() -> None:
 
     # --- combined two-panel figure (recommended for the manuscript) ---
     fig, axes = plt.subplots(1, 2, figsize=(11.0, 5.4))
-    draw_panel(axes[0], ghg, "(a) Greenhouse gases and F-gases", missing=absent)
+    draw_panel(axes[0], ghg, "(a) Greenhouse gases and F-gases")
     draw_panel(axes[1], ap, "(b) Air pollutants")
     fig.tight_layout(w_pad=2.0)
     for ext in ("png", "pdf"):
@@ -136,12 +131,12 @@ def main() -> None:
     plt.close(fig)
 
     # --- the same panels as standalone figures ---
-    for subset, stem, title, miss in [
-        (ghg, "ei_vs_EDGAR_ghg", "Greenhouse gases and F-gases", absent),
-        (ap, "ei_vs_EDGAR_ap", "Air pollutants", None),
+    for subset, stem, title in [
+        (ghg, "ei_vs_EDGAR_ghg", "Greenhouse gases and F-gases"),
+        (ap, "ei_vs_EDGAR_ap", "Air pollutants"),
     ]:
         fig, ax = plt.subplots(figsize=(6.2, 5.8))
-        draw_panel(ax, subset, title, missing=miss)
+        draw_panel(ax, subset, title)
         fig.tight_layout()
         for ext in ("png", "pdf"):
             fig.savefig(FIG_DIR / f"{stem}.{ext}", dpi=300, bbox_inches="tight")
@@ -150,6 +145,9 @@ def main() -> None:
     cols = ["substance", "classification", "ecoinvent_mt", "edgar_mt", "deviation_pct"]
     print("ecoinvent-based normalization inventory vs EDGAR (2018), Mt/year:")
     print(df[cols].to_string(index=False, float_format=lambda v: f"{v:,.3f}"))
+    print("\nNot plotted (absent from ecoinvent, cannot be shown on log axes) "
+          "- state these in the figure caption:")
+    print("  " + ", ".join(absent))
     print(f"\nFigures written to: {FIG_DIR}")
 
 
