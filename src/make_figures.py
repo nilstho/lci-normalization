@@ -1,7 +1,7 @@
 """Regenerate the ecoinvent-vs-EDGAR validation figures (manuscript Figures 2 and 3).
 
 The figures compare the ecoinvent-derived normalization inventory (this study)
-against the public EDGAR v4.3.2 global emission inventory, for greenhouse gases
+against the public EDGAR v8.0 / v8.1 global emission inventory, for greenhouse gases
 and for air pollutants, on log-log axes with a 1:1 reference line.
 
 This script is intentionally decoupled from the heavy LCI pipeline: it reads the
@@ -57,7 +57,7 @@ def scatter_loglog(subset: pd.DataFrame, stem: str, title: str) -> None:
     ax.set_ylim(lo, hi)
     ax.set_aspect("equal")
     ax.set_xlabel(r"ecoinvent normalization inventory  [log$_{10}$ kg yr$^{-1}$]")
-    ax.set_ylabel(r"EDGAR v4.3.2 reference  [log$_{10}$ kg yr$^{-1}$]")
+    ax.set_ylabel(r"EDGAR reference (v8.0 / v8.1, 2018)  [log$_{10}$ kg yr$^{-1}$]")
     ax.set_title(title)
     ax.grid(True, ls=":", alpha=0.6)
     ax.legend(frameon=False, loc="upper left")
@@ -77,7 +77,7 @@ def main() -> None:
     scatter_loglog(df[df["classification"] == "Air pollutant"], "ei_vs_EDGAR_ap", "Air pollutants")
 
     cols = ["substance", "ecoinvent_kg", "edgar_kg", "deviation_pct"]
-    print("Relative deviation of the ecoinvent inventory vs EDGAR v4.3.2:")
+    print("Relative deviation of the ecoinvent inventory vs EDGAR v8.0 / v8.1:")
     print(df[cols].to_string(index=False, float_format=lambda v: f"{v:.3e}"))
     print(f"\nFigures written to: {FIG_DIR}")
 
