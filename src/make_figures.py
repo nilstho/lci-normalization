@@ -98,14 +98,15 @@ def draw_panel(ax, subset: pd.DataFrame, title: str,
     ax.set_ylim(lo, hi)
     ax.set_aspect("equal")          # keeps the 1:1 line at 45 degrees
 
-    # narrow ranges get plain numeric ticks (incl. minor) instead of 10^n only
+    # A narrow range spans well under one decade, so 10^n ticks alone are too
+    # sparse. Label the conventional 1-2-5 series instead, at a single font size
+    # so that decade and intermediate ticks are not visually distinguishable.
     if np.log10(hi / lo) < 2.5:
         for axis in (ax.xaxis, ax.yaxis):
-            axis.set_major_locator(mticker.LogLocator(base=10, subs=(1.0,)))
-            axis.set_minor_locator(mticker.LogLocator(base=10, subs=(0.3, 0.5, 2.0, 3.0, 5.0)))
+            axis.set_major_locator(mticker.LogLocator(base=10, subs=(1.0, 2.0, 5.0)))
             axis.set_major_formatter(mticker.ScalarFormatter())
-            axis.set_minor_formatter(mticker.ScalarFormatter())
-        ax.tick_params(axis="both", which="minor", labelsize=8)
+            axis.set_minor_locator(mticker.NullLocator())
+        ax.tick_params(axis="both", which="major", labelsize=9)
 
     ax.set_xlabel(XLABEL, fontsize=10)
     if show_ylabel:
