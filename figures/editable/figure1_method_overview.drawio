@@ -1,0 +1,50 @@
+<mxfile host="app.diagrams.net" version="24.0.0">
+  <diagram id="figure1" name="Figure 1 - Method overview">
+    <mxGraphModel dx="1200" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="550" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="boxB" value="&lt;div style=&quot;font-size:19px;color:#1f4e79;&quot;&gt;&lt;b&gt;Intervention matrix B&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;height:14px;&quot;&gt;&lt;/div&gt;&lt;div style=&quot;font-size:14px;color:#2b2b2b;&quot;&gt;ecoinvent 3.8 cut-off&lt;/div&gt;&lt;div style=&quot;height:10px;&quot;&gt;&lt;/div&gt;&lt;div style=&quot;font-size:14px;color:#2b2b2b;&quot;&gt;direct flow intensities b&lt;sub&gt;e,p&lt;/sub&gt;&lt;/div&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#e7eef6;strokeColor=#1f4e79;strokeWidth=2;verticalAlign=middle;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="60" width="250" height="150" as="geometry" />
+        </mxCell>
+
+        <mxCell id="opTimes" value="&lt;span style=&quot;font-size:34px;color:#8a8a8a;&quot;&gt;&#215;&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="288" y="110" width="54" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="boxS" value="&lt;div style=&quot;font-size:19px;color:#2e7d6b;&quot;&gt;&lt;b&gt;Scaling vector &#7777;&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;height:14px;&quot;&gt;&lt;/div&gt;&lt;div style=&quot;font-size:14px;color:#2b2b2b;&quot;&gt;annual production volumes &amp;nbsp;&#7777;&lt;sub&gt;p&lt;/sub&gt; = PV&lt;sub&gt;p&lt;/sub&gt;&lt;/div&gt;&lt;div style=&quot;height:12px;&quot;&gt;&lt;/div&gt;&lt;div style=&quot;font-size:12px;color:#8a8a8a;&quot;&gt;&lt;b&gt;sources&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;font-size:12px;color:#2b2b2b;&quot;&gt;ecoinvent &#183; trade statistics &#183;&lt;br&gt;reports &#183; literature&lt;/div&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#e3f0ec;strokeColor=#2e7d6b;strokeWidth=2;verticalAlign=middle;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="345" y="45" width="285" height="180" as="geometry" />
+        </mxCell>
+
+        <mxCell id="opEq" value="&lt;span style=&quot;font-size:34px;color:#8a8a8a;&quot;&gt;=&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="636" y="110" width="54" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="boxG" value="&lt;div style=&quot;font-size:18px;color:#b9791b;&quot;&gt;&lt;b&gt;Normalization inventory &#289;&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;height:12px;&quot;&gt;&lt;/div&gt;&lt;div style=&quot;font-size:21px;color:#2b2b2b;&quot;&gt;&lt;b&gt;&#289; = B &#7777;&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;height:12px;&quot;&gt;&lt;/div&gt;&lt;div style=&quot;font-size:13px;color:#2b2b2b;&quot;&gt;global annual amount of each flow&lt;/div&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#fbeed6;strokeColor=#b9791b;strokeWidth=2;verticalAlign=middle;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="695" y="60" width="300" height="150" as="geometry" />
+        </mxCell>
+
+        <mxCell id="arrowQ" style="edgeStyle=none;html=1;strokeColor=#8a8a8a;strokeWidth=3;endArrow=block;endFill=1;endSize=6;" edge="1" parent="1" source="boxG" target="boxH">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="845" y="210" as="sourcePoint" />
+            <mxPoint x="845" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="labQ" value="&lt;div style=&quot;font-size:14px;color:#2b2b2b;text-align:right;&quot;&gt;&lt;b&gt;&#215; Q&amp;nbsp;&amp;nbsp; characterization matrix&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;font-size:12px;color:#8a8a8a;text-align:right;&quot;&gt;(EF v3.0, ReCiPe 2016, IMPACTWorld+)&lt;/div&gt;" style="text;html=1;align=right;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="420" y="222" width="400" height="56" as="geometry" />
+        </mxCell>
+
+        <mxCell id="boxH" value="&lt;div style=&quot;font-size:18px;color:#a63a25;&quot;&gt;&lt;b&gt;Normalization reference &#7715;&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;height:12px;&quot;&gt;&lt;/div&gt;&lt;div style=&quot;font-size:21px;color:#2b2b2b;&quot;&gt;&lt;b&gt;&#7715; = Q &#289;&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;height:12px;&quot;&gt;&lt;/div&gt;&lt;div style=&quot;font-size:13px;color:#2b2b2b;&quot;&gt;per impact category &lt;i&gt;i&lt;/i&gt;&lt;/div&gt;" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#f6e4de;strokeColor=#a63a25;strokeWidth=2;verticalAlign=middle;shadow=1;" vertex="1" parent="1">
+          <mxGeometry x="695" y="300" width="300" height="150" as="geometry" />
+        </mxCell>
+
+        <mxCell id="foot" value="&lt;div style=&quot;font-size:14px;color:#2b2b2b;text-align:left;&quot;&gt;&lt;b&gt;Applied to a product system under study:&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;height:14px;&quot;&gt;&lt;/div&gt;&lt;div style=&quot;font-size:20px;color:#2b2b2b;text-align:left;&quot;&gt;&lt;b&gt;h&#771;&lt;sub&gt;i&lt;/sub&gt; = h&lt;sub&gt;i&lt;/sub&gt; / &#7715;&lt;sub&gt;i&lt;/sub&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;(unit: yr)&lt;/b&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="35" y="330" width="380" height="90" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
