@@ -1,0 +1,37 @@
+variant,category,unit,NR_full,NR_without_negative,flows_characterised
+with LT,acidification: terrestrial,kg SO2-Eq,249983863274.75873,249983863274.75873,24
+with LT,climate change,kg CO2-Eq,60502674702671.14,60626148157842.57,63
+with LT,ecotoxicity: freshwater,"kg 1,4-DCB-Eq",1920666573869.5034,1920666604812.6206,877
+with LT,ecotoxicity: marine,"kg 1,4-DCB-Eq",2557876189159.3867,2557876214684.143,877
+with LT,ecotoxicity: terrestrial,"kg 1,4-DCB-Eq",212663764083618.7,212663764083618.7,875
+with LT,"energy resources: non-renewable, fossil",kg oil-Eq,11550702663578.168,11550702663578.168,6
+with LT,eutrophication: freshwater,kg P-Eq,5781851364.070793,5783029348.133127,11
+with LT,eutrophication: marine,kg N-Eq,23443921764.489067,23443921764.489067,19
+with LT,human toxicity: carcinogenic,"kg 1,4-DCB-Eq",4837632027233.438,4837632037419.018,273
+with LT,human toxicity: non-carcinogenic,"kg 1,4-DCB-Eq",329582113231972.2,329582114791750.9,644
+with LT,ionising radiation,kg Co-60-Eq,132503883327.34229,132503883327.34229,39
+with LT,land use,m2*a crop-Eq,28168152071199.4,28168152071199.4,43
+with LT,material resources: metals/minerals,kg Cu-Eq,2499421802265.502,2499421802265.502,52
+with LT,ozone depletion,kg CFC-11-Eq,126627834.2126336,126627834.2126336,23
+with LT,particulate matter formation,kg PM2.5-Eq,95628731256.62334,95628731256.62334,27
+with LT,photochemical oxidant formation: human health,kg NOx-Eq,124156274476.9266,124156274476.9266,123
+with LT,photochemical oxidant formation: terrestrial ecosystems,kg NOx-Eq,129687341109.59538,129687341109.59538,123
+with LT,water use,cubic meter,5868986446844.184,5868986446844.184,5
+no LT,acidification: terrestrial,kg SO2-Eq,248879384395.08975,248879384395.08975,20
+no LT,climate change,kg CO2-Eq,60447496310161.8,60570969765333.23,60
+no LT,ecotoxicity: freshwater,"kg 1,4-DCB-Eq",162212372650.28687,162212403593.40442,826
+no LT,ecotoxicity: marine,"kg 1,4-DCB-Eq",276581056348.697,276581081873.453,826
+no LT,ecotoxicity: terrestrial,"kg 1,4-DCB-Eq",199090119425778.06,199090119425778.06,824
+no LT,"energy resources: non-renewable, fossil",kg oil-Eq,11550702663578.168,11550702663578.168,6
+no LT,eutrophication: freshwater,kg P-Eq,3984763666.13958,3985941650.201914,10
+no LT,eutrophication: marine,kg N-Eq,22764000751.687847,22764000751.687847,16
+no LT,human toxicity: carcinogenic,"kg 1,4-DCB-Eq",1287678492056.1826,1287678502241.7612,258
+no LT,human toxicity: non-carcinogenic,"kg 1,4-DCB-Eq",290237842686276.5,290237844246055.2,602
+no LT,ionising radiation,kg Co-60-Eq,131281851768.3353,131281851768.3353,38
+no LT,land use,m2*a crop-Eq,28168152071199.4,28168152071199.4,43
+no LT,material resources: metals/minerals,kg Cu-Eq,2499421802265.502,2499421802265.502,52
+no LT,ozone depletion,kg CFC-11-Eq,125264534.24903542,125264534.24903542,22
+no LT,particulate matter formation,kg PM2.5-Eq,95457830253.1644,95457830253.1644,22
+no LT,photochemical oxidant formation: human health,kg NOx-Eq,123964045981.91211,123964045981.91211,120
+no LT,photochemical oxidant formation: terrestrial ecosystems,kg NOx-Eq,129493962773.88103,129493962773.88103,120
+no LT,water use,cubic meter,5841187078460.204,5841187078460.204,4
