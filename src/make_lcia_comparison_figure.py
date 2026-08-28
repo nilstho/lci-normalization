@@ -1,21 +1,22 @@
 """Figure: deviation of the EI-NI normalization references from the published
-ReCiPe 2016 world normalization scores.
+global normalisation factors of two LCIA methods.
 
-The EI-NI references are characterised with ReCiPe 2016 v1.03 midpoint (H); the
-published reference is the official RIVM ReCiPe2016 v1.1 world normalization score
-(Hierarchist, 2010), converted from a per-person to an absolute basis with the
-world population of 6,895,889,018 stated in that workbook.
+  * EF v3.0     -> Sala et al. (2017), Table 4, global NF for EF, year 2010
+  * ReCiPe 2016 -> RIVM ReCiPe2016 v1.1 world normalization scores (Hierarchist,
+                   2010), converted from per-person to absolute with the world
+                   population of 6,895,889,018 stated in that workbook
 
-Two variants of the EI-NI are shown, differing only in whether ecoinvent
-long-term emissions are included. The choice is immaterial for the non-toxic
-categories and decisive for the toxicity-related ones, which is itself a result.
+Both published references use the same population basis, so the two series are
+directly comparable. The ReCiPe series uses the variant without ecoinvent
+long-term emissions, since the published factors represent actual annual
+emissions rather than long-term releases.
 
-Two categories are excluded and reported in the caption instead:
-  * ionising radiation - the Brightway implementation reports kg Co-60-Eq while
-    the RIVM score is given in kBq Co-60 eq, so the two are not comparable as is;
-  * mineral resource scarcity - the EI-NI covers only the subset of mineral
-    extraction represented in ecoinvent, giving a difference of -100 % that
-    reflects scope rather than a deviation in the same quantity.
+Categories are omitted per method where the two sides are not the same quantity:
+  * EF: land use (dimensionless vs pt) and freshwater eutrophication
+    (kg PO4-eq vs kg P eq)
+  * ReCiPe: ionising radiation (kg Co-60-Eq vs kBq Co-60 eq) and mineral
+    resource scarcity (EI-NI covers only the mineral extraction represented in
+    ecoinvent)
 
 Usage: python src/make_lcia_comparison_figure.py
 Outputs: figures/lcia_comparison.{png,pdf}
@@ -30,57 +31,79 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
 
 ROOT = Path(__file__).resolve().parent.parent
-DATA = ROOT / "data" / "recipe2016_vs_rivm.csv"
 FIG_DIR = ROOT / "figures"
 
-EXCLUDE = {"ionising radiation", "material resources: metals/minerals"}
-TOXIC = {
-    "human toxicity: carcinogenic", "human toxicity: non-carcinogenic",
-    "ecotoxicity: freshwater", "ecotoxicity: marine", "ecotoxicity: terrestrial",
+# display name -> (EF v3.0 category, ReCiPe 2016 category); None = not comparable
+MAP = {
+    "climate change":            ("climate change", "climate change"),
+    "ozone depletion":           ("ozone depletion", "ozone depletion"),
+    "acidification":             ("acidification", "acidification: terrestrial"),
+    "particulate matter form.":  ("particulate matter formation", "particulate matter formation"),
+    "photochem. ozone form.":    ("photochemical ozone formation: human health",
+                                  "photochemical oxidant formation: human health"),
+    "eutrophication: terrestrial": ("eutrophication: terrestrial", None),
+    "eutrophication: freshwater": (None, "eutrophication: freshwater"),
+    "eutrophication: marine":    ("eutrophication: marine", "eutrophication: marine"),
+    "land use":                  (None, "land use"),
+    "water use":                 ("water use", "water use"),
+    "fossil resources":          ("energy resources: non-renewable",
+                                  "energy resources: non-renewable, fossil"),
+    "human toxicity: carcinog.": ("human toxicity: carcinogenic", "human toxicity: carcinogenic"),
+    "human toxicity: non-carc.": ("human toxicity: non-carcinogenic",
+                                  "human toxicity: non-carcinogenic"),
+    "ecotoxicity: freshwater":   ("ecotoxicity: freshwater", "ecotoxicity: freshwater"),
+    "ecotoxicity: marine":       (None, "ecotoxicity: marine"),
+    "ecotoxicity: terrestrial":  (None, "ecotoxicity: terrestrial"),
 }
-SHORT = {
-    "photochemical oxidant formation: human health": "photochem. ozone form.: human health",
-    "photochemical oxidant formation: terrestrial ecosystems": "photochem. ozone form.: terrestrial",
-    "energy resources: non-renewable, fossil": "fossil resources",
-}
-C_NOLT, C_LT = "#1f4e79", "#c0392b"
+TOXIC = {"human toxicity: carcinog.", "human toxicity: non-carc.",
+         "ecotoxicity: freshwater", "ecotoxicity: marine", "ecotoxicity: terrestrial"}
+C_EF, C_RC = "#1f4e79", "#c0392b"
 
 
 def main() -> None:
     plt.style.use("ggplot")
-    df = pd.read_csv(DATA)
-    df = df[~df["category"].isin(EXCLUDE)]
+    ef = pd.read_csv(ROOT / "data" / "ef30_vs_sala2017.csv").set_index("category")
+    rc = pd.read_csv(ROOT / "data" / "recipe2016_vs_rivm.csv")
+    rc = rc[rc.variant == "no LT"].set_index("category")
 
-    piv = df.pivot_table(index="category", columns="variant",
-                         values="diff_pct", aggfunc="first")
-    piv["toxic"] = [c in TOXIC for c in piv.index]
-    # non-toxic first, each block sorted by the no-LT deviation
-    piv = piv.sort_values(["toxic", "no LT"])
+    rows = []
+    for name, (c_ef, c_rc) in MAP.items():
+        rows.append({
+            "name": name,
+            "EF": float(ef.loc[c_ef, "diff_pct"]) if c_ef in ef.index else np.nan,
+            "ReCiPe": float(rc.loc[c_rc, "diff_pct"]) if c_rc in rc.index else np.nan,
+            "toxic": name in TOXIC,
+        })
+    d = pd.DataFrame(rows)
+    d["sort"] = d[["EF", "ReCiPe"]].mean(axis=1)
+    d = d.sort_values(["toxic", "sort"]).reset_index(drop=True)
 
-    labels = [SHORT.get(c, c) for c in piv.index]
-    y = np.arange(len(piv))
+    y = np.arange(len(d))
     h = 0.38
-
-    fig, ax = plt.subplots(figsize=(9.6, 6.4))
-    ax.barh(y + h / 2, piv["no LT"], height=h, color=C_NOLT,
-            label="EI-NI, long-term emissions excluded")
-    ax.barh(y - h / 2, piv["with LT"], height=h, color=C_LT,
-            label="EI-NI, long-term emissions included")
+    fig, ax = plt.subplots(figsize=(9.8, 6.6))
+    ax.barh(y + h / 2, d["EF"].fillna(0), height=h, color=C_EF,
+            label="EF v3.0  vs  Sala et al. (2017)")
+    ax.barh(y - h / 2, d["ReCiPe"].fillna(0), height=h, color=C_RC,
+            label="ReCiPe 2016 (H)  vs  RIVM world scores")
+    for i, r in d.iterrows():          # mark the non-comparable combinations
+        for val, off in ((r["EF"], h / 2), (r["ReCiPe"], -h / 2)):
+            if np.isnan(val):
+                ax.text(0.6, i + off, "n/a", va="center", ha="left",
+                        fontsize=7.5, color="0.5", style="italic")
 
     ax.axvline(0, color="0.3", lw=1.0)
     ax.set_yticks(y)
-    ax.set_yticklabels(labels, fontsize=9)
+    ax.set_yticklabels(d["name"], fontsize=9)
     ax.set_xscale("symlog", linthresh=10)
-    ax.set_xlim(-200, 20000)
+    ax.set_xlim(-200, 5000)
     ax.xaxis.set_major_formatter(mticker.FuncFormatter(lambda v, _: f"{v:,.0f}"))
     ax.set_xlabel("Deviation of the EI-NI reference from the published "
-                  "ReCiPe 2016 world score  [%]", fontsize=10)
+                  "normalisation factor  [%]", fontsize=10)
     ax.tick_params(axis="x", labelsize=9)
 
-    # separate the toxicity block
-    split = int((~piv["toxic"]).sum())
+    split = int((~d["toxic"]).sum())
     ax.axhline(split - 0.5, color="0.45", ls="--", lw=1.0)
-    ax.text(0.015, len(piv) - 0.35, "toxicity-related categories",
+    ax.text(0.015, len(d) - 0.35, "toxicity-related categories",
             transform=ax.get_yaxis_transform(), fontsize=9,
             color="0.35", ha="left", va="center", style="italic")
 
@@ -93,7 +116,7 @@ def main() -> None:
         fig.savefig(FIG_DIR / f"lcia_comparison.{ext}", dpi=300, bbox_inches="tight")
     plt.close(fig)
 
-    print(piv.round(0).to_string())
+    print(d[["name", "EF", "ReCiPe", "toxic"]].round(0).to_string(index=False))
     print(f"\nFigure written to: {FIG_DIR}")
 
 
